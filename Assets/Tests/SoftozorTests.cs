@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace Tests
 {
@@ -15,16 +13,35 @@ namespace Tests
     [Test]
     public void ShouldMoveUpwardUponLeftMouseButtonClick()
     {
-      //var inputController = new Mock<IInputController>();
-      //inputController.Setup(controller => controller.LeftMouseButtonClicked())
-      //  .Returns(true);
-      //var softozor = new Mock<ISoftozor>();
-      //// TODO: set softozor's initial position!
-      //var mover = new SoftozorMover(inputController.Object, softozor.Object);
-      //var initialSoftozorPosition = softozor.Position;
-      //mover.Flap();
-      //Assert.IsTrue(softozor.Position.y > initialSoftozorPosition.y);
-      Assert.Inconclusive();
+      // Given
+      var inputState = new InputState();      
+      var inputControllerStub = new Mock<IInputController>();
+      inputControllerStub.Setup(controller => controller.LeftMouseButtonClicked())
+        .Returns(true);
+      var inputHandler = new PlayerInputHandler(inputState, inputControllerStub.Object);
+
+      var front = GameObject.Find("front");
+      var frontEdgeColliders = front.GetComponents<EdgeCollider2D>();
+      var xMin = frontEdgeColliders.Min(collider => collider.points.Min(point => point.x));
+      var xMax = frontEdgeColliders.Max(collider => collider.points.Max(point => point.x));
+      var yMin = frontEdgeColliders.Min(collider => collider.points.Min(point => point.y));
+      var yMax = frontEdgeColliders.Max(collider => collider.points.Max(point => point.y));
+      var softozorMock = new Mock<ISoftozor>();
+      var initialPos = new Vector2((xMin + xMax / 2), (yMin + yMax) / 2);
+      var actualPosition = initialPos;
+      softozorMock.SetupSet(softozor => softozor.Position = It.IsAny<Vector2>())
+        .Callback<Vector2>(position => actualPosition = position);
+      softozorMock.SetupGet(softozor => softozor.Position)
+        .Returns(initialPos);
+
+      var moveHandler = new PlayerMoveHandler(inputState, softozorMock.Object);
+
+      // When
+      inputHandler.Tick();
+      moveHandler.FixedTick();
+
+      // Then
+      Assert.IsTrue(actualPosition.y > initialPos.y);
     }
 
     /// <summary>
