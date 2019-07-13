@@ -1,5 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
+using Player;
+using PlayerInput;
+using PlayerMovement;
 using System.Linq;
 using UnityEngine;
 
@@ -16,7 +19,7 @@ namespace Tests
       // Given
       var inputState = new InputState();      
       var inputControllerStub = new Mock<IInputController>();
-      inputControllerStub.Setup(controller => controller.LeftMouseButtonClicked())
+      inputControllerStub.Setup(controller => controller.LeftMouseButtonClicked)
         .Returns(true);
       var inputHandler = new PlayerInputHandler(inputState, inputControllerStub.Object);
 
