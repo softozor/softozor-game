@@ -1,7 +1,7 @@
 ﻿using Boundaries;
 using Moq;
 using NUnit.Framework;
-using PlayerMovement;
+using PlayerControl;
 using System.Linq;
 using UnityEngine;
 
