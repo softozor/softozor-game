@@ -4,11 +4,26 @@ using NUnit.Framework;
 using PlayerControl;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace Tests
 {
-  public class SoftozorTests
+  [TestFixture]
+  public class SoftozorTests : ZenjectUnitTestFixture
   {
+    private InputState _inputState;
+    private Mock<IInputController> _inputControllerStub;
+    private Mock<IPlayer> _softozorMock;
+
+    [SetUp]
+    public void Initialize()
+    {
+      // TODO: use installers
+      _inputState = new InputState();
+      _inputControllerStub = new Mock<IInputController>();
+      _softozorMock = new Mock<IPlayer>();
+    }
+
     /// <summary>
     /// The Player can make Softozor fly upwards upon left mouse button clicked
     /// </summary>
@@ -16,27 +31,16 @@ namespace Tests
     public void ShouldMoveUpwardUponLeftMouseButtonClick()
     {
       // Given
-      var inputState = new InputState();      
-      var inputControllerStub = new Mock<IInputController>();
-      inputControllerStub.Setup(controller => controller.LeftMouseButtonClicked)
+      _inputControllerStub.Setup(controller => controller.LeftMouseButtonClicked)
         .Returns(true);
-      var inputHandler = new PlayerInputHandler(inputState, inputControllerStub.Object);
-
-      var front = GameObject.Find("front");
-      var frontEdgeColliders = front.GetComponents<EdgeCollider2D>();
-      var xMin = frontEdgeColliders.Min(collider => collider.points.Min(point => point.x));
-      var xMax = frontEdgeColliders.Max(collider => collider.points.Max(point => point.x));
-      var yMin = frontEdgeColliders.Min(collider => collider.points.Min(point => point.y));
-      var yMax = frontEdgeColliders.Max(collider => collider.points.Max(point => point.y));
-      var softozorMock = new Mock<IPlayer>();
-      var initialPos = new Vector2((xMin + xMax / 2), (yMin + yMax) / 2);
+      var inputHandler = new PlayerInputHandler(_inputState, _inputControllerStub.Object);
+      var initialPos = GetPlayerInitialPosition(); 
       var actualPosition = initialPos;
-      softozorMock.SetupSet(softozor => softozor.Position = It.IsAny<Vector2>())
+      _softozorMock.SetupSet(softozor => softozor.Position = It.IsAny<Vector2>())
         .Callback<Vector2>(position => actualPosition = position);
-      softozorMock.SetupGet(softozor => softozor.Position)
+      _softozorMock.SetupGet(softozor => softozor.Position)
         .Returns(initialPos);
-
-      var moveHandler = new PlayerMoveHandler(inputState, softozorMock.Object);
+      var moveHandler = new PlayerMoveHandler(_inputState, _softozorMock.Object);
 
       // When
       inputHandler.Tick();
@@ -44,6 +48,17 @@ namespace Tests
 
       // Then
       Assert.IsTrue(actualPosition.y > initialPos.y);
+    }
+
+    private static Vector2 GetPlayerInitialPosition()
+    {
+      var front = GameObject.Find("front");
+      var frontEdgeColliders = front.GetComponents<EdgeCollider2D>();
+      var xMin = frontEdgeColliders.Min(collider => collider.points.Min(point => point.x));
+      var xMax = frontEdgeColliders.Max(collider => collider.points.Max(point => point.x));
+      var yMin = frontEdgeColliders.Min(collider => collider.points.Min(point => point.y));
+      var yMax = frontEdgeColliders.Max(collider => collider.points.Max(point => point.y));
+      return new Vector2((xMin + xMax / 2), (yMin + yMax) / 2);
     }
 
     /// <summary>
