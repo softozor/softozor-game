@@ -1,4 +1,4 @@
-﻿using PlayerInput;
+﻿using Boundaries;
 using Zenject;
 
 namespace PlayerMovement

@@ -1,4 +1,4 @@
-﻿namespace PlayerInput
+﻿namespace Boundaries
 {
   public interface IInputController
   {

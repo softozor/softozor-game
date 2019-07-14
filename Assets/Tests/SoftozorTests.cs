@@ -1,7 +1,6 @@
-﻿using Moq;
+﻿using Boundaries;
+using Moq;
 using NUnit.Framework;
-using Player;
-using PlayerInput;
 using PlayerMovement;
 using System.Linq;
 using UnityEngine;
@@ -29,7 +28,7 @@ namespace Tests
       var xMax = frontEdgeColliders.Max(collider => collider.points.Max(point => point.x));
       var yMin = frontEdgeColliders.Min(collider => collider.points.Min(point => point.y));
       var yMax = frontEdgeColliders.Max(collider => collider.points.Max(point => point.y));
-      var softozorMock = new Mock<ISoftozor>();
+      var softozorMock = new Mock<IPlayer>();
       var initialPos = new Vector2((xMin + xMax / 2), (yMin + yMax) / 2);
       var actualPosition = initialPos;
       softozorMock.SetupSet(softozor => softozor.Position = It.IsAny<Vector2>())

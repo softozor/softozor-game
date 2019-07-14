@@ -1,4 +1,4 @@
-﻿using Player;
+﻿using Boundaries;
 using Zenject;
 
 namespace PlayerMovement
@@ -6,9 +6,9 @@ namespace PlayerMovement
   public class PlayerMoveHandler : IFixedTickable
   {
     readonly InputState _state;
-    readonly ISoftozor _player;
+    readonly IPlayer _player;
 
-    public PlayerMoveHandler(InputState state, ISoftozor player)
+    public PlayerMoveHandler(InputState state, IPlayer player)
     {
       _player = player;
       _state = state;

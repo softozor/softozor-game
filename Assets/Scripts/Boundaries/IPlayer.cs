@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Player
+namespace Boundaries
 {
-  public interface ISoftozor
+  public interface IPlayer
   {
     Vector2 Position { get; set; }
   }
