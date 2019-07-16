@@ -5,7 +5,7 @@ using PlayerControl;
 using UnityEngine;
 using Zenject;
 
-namespace Tests
+namespace PlayerTests
 {
   [TestFixture]
   public class PlayerTests : ZenjectUnitTestFixture
@@ -13,13 +13,13 @@ namespace Tests
     private Mock<IInputController> _inputControllerStub;
     private InputState _inputState;
     private Mock<IPlayer> _playerMock;
-    private string _testSettingPath = "TestSettingsInstaller";
+    private string _testSettingPath = "PlayerTestsSettingsInstaller";
 
     [SetUp]
     public void Initialize()
     {
-      TestSettingsInstaller.InstallFromResource(_testSettingPath, Container);
-      TestInstaller.Install(Container);
+      SettingsInstaller.InstallFromResource(_testSettingPath, Container);
+      Installer.Install(Container);
 
       _inputState = new InputState();
       _inputControllerStub = new Mock<IInputController>();
@@ -42,8 +42,7 @@ namespace Tests
       _inputControllerStub.Setup(controller => controller.LeftMouseButtonClicked)
         .Returns(true);
       var inputHandler = new PlayerInputHandler(_inputState, _inputControllerStub.Object);
-      // TODO: 
-      var initialPos = Container.ResolveId<Vector2>("PlayerInitialPosition");
+      var initialPos = Container.ResolveId<Vector2>(BindingIds.EnvironmentCenter);
       var actualPosition = initialPos;
       _playerMock.SetupSet(softozor => softozor.Position = It.IsAny<Vector2>())
         .Callback<Vector2>(position => actualPosition = position);
