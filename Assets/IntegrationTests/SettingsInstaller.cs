@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Boundaries;
+using UnityEngine;
 using Zenject;
 
 [CreateAssetMenu(fileName = "TestSettingsInstaller", menuName = "Installers/Test/PlayerTestsSettingsInstaller")]
@@ -8,6 +9,9 @@ public class SettingsInstaller : ScriptableObjectInstaller<SettingsInstaller>
 
   public override void InstallBindings()
   {
-    Container.BindInterfacesAndSelfTo<Settings>().FromInstance(_settings).AsSingle();
+    Container.Bind<IPlayer>()
+      .To<Softozor>()
+      .AsSingle()
+      .WithArguments(_settings.Rigidbody);
   }
 }

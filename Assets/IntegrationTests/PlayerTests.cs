@@ -2,6 +2,7 @@ using Zenject;
 using System.Collections;
 using UnityEngine.TestTools;
 using UnityEngine;
+using Boundaries;
 
 // TODO: double-check https://www.youtube.com/watch?v=iz4ZIPxEdJk&list=PLyH-qXFkNSxkEFpnVR14TDSUv0IGXbSdZ&index=48 for more details on how to install the prefab in 
 // TODO: the ProjectContext!
@@ -11,7 +12,7 @@ public class PlayerTests : ZenjectIntegrationTestFixture
   private const string TEST_SETTINGS_PATH = "PlayerTestsSettingsInstaller";
 
   [Inject]
-  private Settings _settings;
+  private IPlayer _player;
  
   [UnityTest]
   public IEnumerator ShouldMoveUpwardUponLeftMouseButtonClick()
@@ -19,7 +20,7 @@ public class PlayerTests : ZenjectIntegrationTestFixture
     CommonPreInstall();
     CommonPostInstall();
 
-    var rigidbody = _settings.Rigidbody;
+    var position = _player.Position;
 
     // Add test assertions for expected state
     // Using Container.Resolve or [Inject] fields
