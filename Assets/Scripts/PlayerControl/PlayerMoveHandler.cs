@@ -16,7 +16,10 @@ namespace PlayerControl
 
     public void FixedTick()
     {
-      throw new System.NotImplementedException();
+      if (_state.IsMovingUp)
+      {
+        _player.Flap();
+      }
     }
   }
 }

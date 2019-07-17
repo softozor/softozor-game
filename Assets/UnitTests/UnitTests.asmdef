@@ -1,5 +1,5 @@
 {
-    "name": "Tests",
+    "name": "UnitTests",
     "references": [
         "GUID:030de91ed97695f4ebc77c84a7e2bb1e",
         "GUID:a2f2239355369ba4fb6909aeaa41def5",

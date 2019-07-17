@@ -16,7 +16,7 @@ namespace PlayerControl
 
     public void Tick()
     {
-      throw new System.NotImplementedException();
+      _state.IsMovingUp = _controller.LeftMouseButtonClicked || _controller.SpaceKeyPressed;
     }
   }
 }
