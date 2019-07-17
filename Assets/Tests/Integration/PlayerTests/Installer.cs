@@ -2,16 +2,19 @@
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "Installer", menuName = "Installers/Tests/Integration/PlayerTests")]
-public class Installer : ScriptableObjectInstaller<Installer>
+namespace PlayerIntegrationTests
 {
-  public Settings _settings;
-
-  public override void InstallBindings()
+  [CreateAssetMenu(fileName = "Installer", menuName = "Installers/Tests/Integration/PlayerTests")]
+  public class Installer : ScriptableObjectInstaller<Installer>
   {
-    Container.Bind<IPlayer>()
-      .To<Softozor>()
-      .AsSingle()
-      .WithArguments(_settings.Rigidbody);
+    public Settings _settings;
+
+    public override void InstallBindings()
+    {
+      Container.Bind<IPlayer>()
+        .To<Softozor>()
+        .AsSingle()
+        .WithArguments(_settings.Rigidbody);
+    }
   }
 }
