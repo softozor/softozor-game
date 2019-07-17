@@ -9,7 +9,7 @@ using Boundaries;
 public class PlayerTests : ZenjectIntegrationTestFixture
 {
   // The Resources folder is automatically looked up for asset files
-  private const string TEST_SETTINGS_PATH = "PlayerTestsSettingsInstaller";
+  private const string TEST_SETTINGS_PATH = "Tests/Integration/PlayerTestsSettingsInstaller";
 
   [Inject]
   private IPlayer _player;
