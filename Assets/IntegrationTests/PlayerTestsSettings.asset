@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e80e13d1bdc01a4a900b824ceb16ea6, type: 3}
-  m_Name: PlayerTestsSettingsInstaller
+  m_Script: {fileID: 11500000, guid: 08689b7d224494c42aef6a44356575e6, type: 3}
+  m_Name: PlayerTestsSettings
   m_EditorClassIdentifier: 
-  _settings: {fileID: 11400000, guid: 110a2d303f4856b43b5366f00765620e, type: 2}
+  _playerPrefab: {fileID: 3208973621761004259, guid: 81e137dd9bff3a5448967583f7c244cd,
+    type: 3}
