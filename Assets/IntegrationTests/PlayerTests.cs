@@ -52,7 +52,7 @@ public class PlayerTests : ZenjectIntegrationTestFixture
   /// </summary>
   private void FillCommonContainer()
   {
-    SettingsInstaller.InstallFromResource(TEST_SETTINGS_PATH, Container);
+    Installer.InstallFromResource(TEST_SETTINGS_PATH, Container);
   }
 
   /*/// <summary>
