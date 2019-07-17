@@ -6,8 +6,6 @@ using Boundaries;
 
 namespace PlayerIntegrationTests
 {
-  // TODO: double-check https://www.youtube.com/watch?v=iz4ZIPxEdJk&list=PLyH-qXFkNSxkEFpnVR14TDSUv0IGXbSdZ&index=48 for more details on how to install the prefab in 
-  // TODO: the ProjectContext!
   public class PlayerTests : ZenjectIntegrationTestFixture
   {
     // The Resources folder is automatically looked up for asset files
