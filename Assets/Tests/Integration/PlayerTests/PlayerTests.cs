@@ -1,8 +1,10 @@
-using Zenject;
-using System.Collections;
-using UnityEngine.TestTools;
-using UnityEngine;
 using Boundaries;
+using NUnit.Framework;
+using PlayerControl;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.TestTools;
+using Zenject;
 
 namespace PlayerIntegrationTests
 {
@@ -14,18 +16,65 @@ namespace PlayerIntegrationTests
     [Inject]
     private IPlayer _player;
 
+    [Inject]
+    private PlayerInputHandler _inputHandler;
+
+    [Inject]
+    private PlayerMoveHandler _moveHandler;
+
     [UnityTest]
-    public IEnumerator ShouldMoveUpwardUponLeftMouseButtonClick()
+    public IEnumerator ShouldAssert()
     {
       CommonPreInstall();
       CommonPostInstall();
 
-      var position = _player.Position;
-
-      // Add test assertions for expected state
-      // Using Container.Resolve or [Inject] fields
+      Assert.That(true == true);
       yield break;
     }
+
+    /// <summary>
+    /// The Player should fly upwards upon flapping
+    /// </summary>
+    [UnityTest]
+    public IEnumerator ShouldMoveUpwardUponFlapping()
+    {
+      CommonPreInstall();
+      CommonPostInstall();
+
+      // Given
+      var initialPos = new Vector2();
+      _player.Position = initialPos;
+
+      // When
+      // Wait one frame to allow update logic for Player to run
+      yield return null;
+      //_player.Flap();
+
+      // Then
+      //Assert.IsTrue(_player.Position.y > initialPos.y);
+      Assert.That(_player.Position.y > initialPos.y);
+    }
+
+    /*
+    /// <summary>
+    /// The Player moves inside of a box that has infinite width but finite height. 
+    /// He cannot put his head above the box's upper limit.
+    /// </summary>
+    [Test]
+    public void ShouldStopAtMaxHeight()
+    {
+      Assert.Inconclusive();
+    }
+
+    /// <summary>
+    /// The Player moves inside of a box that has infinite width but finite height. 
+    /// He cannot put his feet below the box's lower limit.
+    /// </summary>
+    [Test]
+    public void ShouldStopAtMinHeight()
+    {
+      Assert.Inconclusive();
+    }*/
 
     private void CommonPreInstall()
     {
@@ -54,66 +103,5 @@ namespace PlayerIntegrationTests
     {
       Installer.InstallFromResource(TEST_SETTINGS_PATH, Container);
     }
-
-    /*/// <summary>
-    /// The Player can make Softozor fly upwards upon left mouse button clicked
-    /// </summary>
-    [Test]
-    public void ShouldMoveUpwardUponLeftMouseButtonClick()
-    {
-      // Given
-      _inputControllerStub.Setup(controller => controller.LeftMouseButtonClicked)
-        .Returns(true);
-      var inputHandler = new PlayerInputHandler(_inputState, _inputControllerStub.Object);
-      var initialPos = Container.ResolveId<Vector2>(BindingIds.EnvironmentCenter);
-      //var actualPosition = initialPos;
-      //_playerMock.SetupSet(softozor => softozor.Position = It.IsAny<Vector2>())
-      //  .Callback<Vector2>(position => actualPosition = position);
-      //_playerMock.SetupGet(softozor => softozor.Position)
-      //  .Returns(initialPos);
-      _player = new Softozor()
-      {
-        Position = initialPos
-      };
-      var moveHandler = new PlayerMoveHandler(_inputState, _player);
-
-      // When
-      // TODO: you don't want to call those tick methods, you rather want to skip a frame
-      inputHandler.Tick();
-      moveHandler.FixedTick();
-      _player.Flap();
-
-      // Then
-      Assert.IsTrue(_player.Position.y > initialPos.y);
-    }
-
-    /// <summary>
-    /// The Player can make Softozor fly upwards upon space key pressed
-    /// </summary>
-    [Test]
-    public void ShouldMoveUpwardUponSpaceKeyPressed()
-    {
-      Assert.Inconclusive();
-    }
-
-    /// <summary>
-    /// Softozor moves inside of a box that has infinite width but finite height. 
-    /// He cannot put his head above the box's upper limit.
-    /// </summary>
-    [Test]
-    public void ShouldStopAtMaxHeight()
-    {
-      Assert.Inconclusive();
-    }
-
-    /// <summary>
-    /// Softozor moves inside of a box that has infinite width but finite height. 
-    /// He cannot put his feet below the box's lower limit.
-    /// </summary>
-    [Test]
-    public void ShouldStopAtMinHeight()
-    {
-      Assert.Inconclusive();
-    }*/
   }
 }
