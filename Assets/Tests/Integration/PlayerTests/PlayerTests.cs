@@ -25,11 +25,12 @@ namespace PlayerIntegrationTests
     [UnityTest]
     public IEnumerator ShouldAssert()
     {
-      CommonPreInstall();
-      CommonPostInstall();
+      //CommonPreInstall();
+      //CommonPostInstall();
 
-      Assert.That(true == true);
-      yield break;
+      Assert.IsTrue(false);
+      yield return new WaitForEndOfFrame();
+      Assert.IsTrue(false);
     }
 
     /// <summary>
@@ -51,8 +52,7 @@ namespace PlayerIntegrationTests
       //_player.Flap();
 
       // Then
-      //Assert.IsTrue(_player.Position.y > initialPos.y);
-      Assert.That(_player.Position.y > initialPos.y);
+      Assert.Less(initialPos.y, _player.Position.y);
     }
 
     /*
