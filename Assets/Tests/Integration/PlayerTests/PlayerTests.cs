@@ -22,17 +22,6 @@ namespace PlayerIntegrationTests
     [Inject]
     private PlayerMoveHandler _moveHandler;
 
-    [UnityTest]
-    public IEnumerator ShouldAssert()
-    {
-      //CommonPreInstall();
-      //CommonPostInstall();
-
-      Assert.IsTrue(false);
-      yield return new WaitForEndOfFrame();
-      Assert.IsTrue(false);
-    }
-
     /// <summary>
     /// The Player should fly upwards upon flapping
     /// </summary>
