@@ -13,11 +13,10 @@ namespace PlayerIntegrationTests
 
     public override void InstallBindings()
     {
-      Container.Bind<IPlayer>()
-        .To<Softozor>()
+      var player = Instantiate(_settings.PlayerPrefab);
+      Container.BindInterfacesTo<Softozor>()
         .AsSingle()
-        .WithArguments(_settings.Rigidbody);
-
+        .WithArguments(player.GetComponent<Rigidbody2D>());
       Container.BindInstance(GetStubbedInputController()).AsSingle();
       Container.Bind<InputState>().AsSingle();
       // we would not bind Self to the following objects in the game installer;

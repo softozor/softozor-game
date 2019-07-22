@@ -8,6 +8,6 @@ namespace PlayerIntegrationTests
     [SerializeField]
     private GameObject _playerPrefab;
 
-    public Rigidbody2D Rigidbody { get => _playerPrefab.GetComponent<Rigidbody2D>(); }
+    public GameObject PlayerPrefab { get => _playerPrefab; }
   }
 }

@@ -32,15 +32,15 @@ namespace PlayerIntegrationTests
       CommonPostInstall();
 
       // Given
-      var initialPos = new Vector2();
-      _player.Position = initialPos;
+      var initialPos = _player.Position;
+      //yield return null;
 
       // When
       // Wait one frame to allow update logic for Player to run
       yield return null;
-      //_player.Flap();
 
       // Then
+      // TODO: why has initialPos.y changed?????
       Assert.Less(initialPos.y, _player.Position.y);
     }
 
