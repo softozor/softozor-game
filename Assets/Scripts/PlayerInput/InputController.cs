@@ -1,8 +1,8 @@
 ﻿using Boundaries;
+using UnityEngine;
 
 public class InputController : IInputController
 {
-  public bool LeftMouseButtonClicked => throw new System.NotImplementedException();
-
-  public bool SpaceKeyPressed => throw new System.NotImplementedException();
+  public bool LeftMouseButtonClicked => Input.GetMouseButtonDown(0);
+  public bool SpaceKeyPressed => Input.GetKeyDown(KeyCode.Space);
 }
