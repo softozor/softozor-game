@@ -1,4 +1,5 @@
 ﻿using Boundaries;
+using System;
 using UnityEngine;
 
 public class Softozor : IPlayer
@@ -9,7 +10,7 @@ public class Softozor : IPlayer
 
   public Softozor(Rigidbody2D rigidbody)
   {
-    _rigidbody = rigidbody;
+    _rigidbody = rigidbody ?? throw new NullReferenceException("Cannot initialize Softozor with null rigidbody object");
   }
   
   public Vector2 Position
@@ -25,5 +26,6 @@ public class Softozor : IPlayer
   {
     // TODO: set velocity to zero!
     _rigidbody.AddForce(Vector2.up * _force);
+    Debug.Log("Flap");
   }
 }
