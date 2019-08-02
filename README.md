@@ -38,4 +38,4 @@ or
 
 ![PlayerInstaller in GameObjectContext](/doc/img/PlayerInstallerInGameObjectContext.png)
 
-Even in the latter possibility, the `SceneContext` is necessary. Without it, nothing happens. We prefer that latter solution because everything related to the player is grouped at the same place, in the softozor instance. However, it does not work for our Scene Tests, as mentioned [here](https://github.com/modesttree/Zenject/issues/647). Therefore, we're better off with the first possibility. 
+Even in the latter possibility, the `SceneContext` is necessary. Without it, nothing happens. We prefer that latter solution because everything related to the player is grouped at the same place, in the softozor instance. Get an idea how [subcontainers](https://github.com/modesttree/Zenject/blob/master/Documentation/SubContainers.md#using-game-object-contexts) are working [here](https://stackoverflow.com/questions/57286720/zenject-mono-installer-not-called-in-scene-tests-under-some-circumstances/57327521#57327521).
