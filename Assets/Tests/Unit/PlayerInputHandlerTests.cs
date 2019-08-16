@@ -1,7 +1,7 @@
 using Boundaries;
 using Moq;
 using NUnit.Framework;
-using PlayerControl;
+using Player.Control;
 using Zenject;
 
 [TestFixture]

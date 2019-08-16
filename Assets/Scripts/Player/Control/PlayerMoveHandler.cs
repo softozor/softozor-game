@@ -1,7 +1,7 @@
 ﻿using Boundaries;
 using Zenject;
 
-namespace PlayerControl
+namespace Player.Control
 {
   public class PlayerMoveHandler : IFixedTickable
   {

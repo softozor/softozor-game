@@ -1,14 +1,21 @@
-using Zenject;
+using NUnit.Framework;
+using Player;
+using Player.Input;
 using System.Collections;
 using UnityEngine.TestTools;
 using WindowsInput;
 using WindowsInput.Native;
-using NUnit.Framework;
+using Zenject;
 
 public class InputControllerTests : ZenjectIntegrationTestFixture
 {
-  [Inject]
-  PlayerFacade _facade;
+  InputSimulator _inputSimulator;
+
+  [SetUp]
+  public void Setup()
+  {
+    _inputSimulator = new InputSimulator();
+  }
 
   [UnityTest]
   public IEnumerator ShouldHaveSpaceKeyPressedWhenSpaceKeyDown()
@@ -20,8 +27,7 @@ public class InputControllerTests : ZenjectIntegrationTestFixture
     var controller = new InputController();
 
     // When
-    var inputSimulator = new InputSimulator();
-    inputSimulator.Keyboard.KeyDown(VirtualKeyCode.SPACE);
+    _inputSimulator.Keyboard.KeyDown(VirtualKeyCode.SPACE);
     yield return null;
 
     // Then
@@ -41,8 +47,7 @@ public class InputControllerTests : ZenjectIntegrationTestFixture
     var controller = new InputController();
 
     // When
-    var inputSimulator = new InputSimulator();
-    inputSimulator.Mouse.XButtonDown(0);
+    _inputSimulator.Mouse.XButtonDown(0);
     yield return null;
 
     // Then

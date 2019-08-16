@@ -1,7 +1,8 @@
 using Boundaries;
 using Moq;
 using NUnit.Framework;
-using PlayerControl;
+using Player;
+using Player.Control;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;

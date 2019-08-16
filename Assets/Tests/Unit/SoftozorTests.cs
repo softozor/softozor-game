@@ -1,6 +1,7 @@
-using Zenject;
 using NUnit.Framework;
+using Player;
 using System;
+using Zenject;
 
 [TestFixture]
 public class SoftozorTests : ZenjectUnitTestFixture

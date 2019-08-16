@@ -1,4 +1,6 @@
-using PlayerControl;
+using Player;
+using Player.Control;
+using Player.Input;
 using System;
 using UnityEngine;
 using Zenject;

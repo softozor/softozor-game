@@ -1,4 +1,4 @@
-﻿namespace PlayerControl
+﻿namespace Player.Control
 {
   public class InputState
   {

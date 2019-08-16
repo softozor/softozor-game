@@ -1,6 +1,6 @@
-using Zenject;
 using NUnit.Framework;
-using PlayerControl;
+using Player.Control;
+using Zenject;
 
 [TestFixture]
 public class InputStateTests : ZenjectUnitTestFixture

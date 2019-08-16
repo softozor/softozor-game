@@ -1,8 +1,8 @@
-using Zenject;
-using NUnit.Framework;
-using PlayerControl;
 using Boundaries;
 using Moq;
+using NUnit.Framework;
+using Player.Control;
+using Zenject;
 
 [TestFixture]
 public class PlayerMoveHandlerTests : ZenjectUnitTestFixture
