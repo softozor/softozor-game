@@ -9,7 +9,7 @@ using Zenject;
 
 public class PlayerTests : ZenjectIntegrationTestFixture
 {
-  private const string PLAYER_PREFAB_NAME = "Softozor";
+  #region Injected dependencies
 
   [Inject]
   private IPlayer _player;
@@ -19,6 +19,10 @@ public class PlayerTests : ZenjectIntegrationTestFixture
 
   [Inject]
   private PlayerMoveHandler _moveHandler;
+
+  #endregion
+
+  #region Tests
 
   /// <summary>
   /// The Player should fly upwards upon flapping
@@ -53,6 +57,10 @@ public class PlayerTests : ZenjectIntegrationTestFixture
     Assert.Greater(_player.Position.y, initialPos.y);
   }
 
+  #endregion
+
+  #region Common installation
+
   private void CommonPreInstall()
   {
     SetupCommonInitialState();
@@ -83,4 +91,8 @@ public class PlayerTests : ZenjectIntegrationTestFixture
       .AsSingle()
       .WithArguments(player.GetComponent<Rigidbody2D>());
   }
+
+  private const string PLAYER_PREFAB_NAME = "Softozor";
+
+  #endregion
 }
