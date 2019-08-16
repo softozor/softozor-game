@@ -47,7 +47,8 @@ public class InputControllerTests : ZenjectIntegrationTestFixture
     var controller = new InputController();
 
     // When
-    _inputSimulator.Mouse.XButtonDown(0);
+    // This will only work if the mouse cursor is on the game!
+    _inputSimulator.Mouse.LeftButtonDown();
     yield return null;
 
     // Then
