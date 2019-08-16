@@ -1,45 +1,54 @@
-using Zenject;
+using NUnit.Framework;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TestTools;
-using NUnit.Framework;
-using Boundaries;
+using WindowsInput;
+using WindowsInput.Native;
+using Zenject;
 
 public class PlayerTests : SceneTestFixture
 {
   [Inject]
-  private IPlayer _player;
+  private PlayerFacade _facade;
 
-  [UnityTest]
-  public IEnumerator TestScene()
+  private InputSimulator _inputSimulator;
+
+  [SetUp]
+  public void Setup()
   {
-    yield return LoadScene("Main");
-
-    // TODO: we will need to Flap until a certain position has been reached
-    var i = 0;
-    while (i < 100)
-    {
-      //var position = _player.Position;
-      _player.Flap();
-      ++i;
-      yield return new WaitForSeconds(0.01f);
-    }
-
-    // TODO: Add assertions here now that the scene has started
-    //yield return new WaitForSeconds(1.0f);
-
-    // Note that you can use SceneContainer.Resolve to look up objects that you need for assertions
-    Assert.Inconclusive();
+    _inputSimulator = new InputSimulator();
   }
 
   /// <summary>
   /// The Player moves inside of a box that has infinite width but finite height. 
-  /// He cannot put his head above the box's upper limit.
+  /// He cannot flap above the box's upper limit.
   /// </summary>
   [UnityTest]
-  public void ShouldStopAtMaxHeight()
+  public IEnumerator ShouldStopAtMaxHeight()
   {
-    Assert.Inconclusive();
+    yield return LoadScene("Main");
+
+    float yMax = BoxUpperLimit();
+    _facade.Position = new Vector2(_facade.Position.x, yMax);
+
+    // wait one frame for user input
+    yield return null;
+
+    yield return Flap();
+
+    Assert.Less(_facade.Position.y, yMax);
+  }
+
+  private static float BoxUpperLimit()
+  {
+    var front = GameObject.Find("front");
+    var renderer = front.GetComponent<Renderer>();
+    var bounds = renderer.bounds;
+    var size = bounds.size;
+    var transform = front.transform;
+    var pos = transform.position;
+    var yMax = pos.y + size.y / 2;
+    return yMax;
   }
 
   /// <summary>
@@ -50,5 +59,13 @@ public class PlayerTests : SceneTestFixture
   public void ShouldStopAtMinHeight()
   {
     Assert.Inconclusive();
+  }
+
+  private IEnumerator Flap()
+  {
+    _inputSimulator.Keyboard.KeyPress(VirtualKeyCode.SPACE);
+    // wait for Flapping
+    yield return null;
+    yield return null;
   }
 }

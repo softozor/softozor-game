@@ -38,4 +38,8 @@ or
 
 ![PlayerInstaller in GameObjectContext](/doc/img/PlayerInstallerInGameObjectContext.png)
 
-Even in the latter possibility, the `SceneContext` is necessary. Without it, nothing happens. We prefer that latter solution because everything related to the player is grouped at the same place, in the softozor instance. Get an idea how [subcontainers](https://github.com/modesttree/Zenject/blob/master/Documentation/SubContainers.md#using-game-object-contexts) are working [here](https://stackoverflow.com/questions/57286720/zenject-mono-installer-not-called-in-scene-tests-under-some-circumstances/57327521#57327521).
+Even in the latter possibility, the `SceneContext` is necessary. Without it, nothing happens. We prefer that latter solution because everything related to the player is grouped at the same place, in the softozor instance. Get an idea how [subcontainers](https://github.com/modesttree/Zenject/blob/master/Documentation/SubContainers.md#using-game-object-contexts) are working [here](https://stackoverflow.com/questions/57286720/zenject-mono-installer-not-called-in-scene-tests-under-some-circumstances/57327521#57327521). Consequence is that the types registered in the game object subcontainer are not directly injectable into the Scene Test.
+
+In the Scene Tests, we might need acccess to the Player's position. This is achieved by creating a `PlayerFacade` script, adding it as a component to the `softozor` game object and binding it to the `SceneContext` with the `Zenject Binding Script` (`Assets/Plugins/Zenject/Source/Install/ZenjectBinding.cs`):
+
+![Zenject binding](/doc/img/ZenjectBinding.png)

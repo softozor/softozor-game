@@ -38,3 +38,6 @@ sysinfo.txt
 
 # Ignore all .meta files under streaming assets folder, files below that folder are not referenced by Unity anyway so there is not need for metafiles.
 /Assets/*.meta
+
+# Test scenes
+Assets/InitTestScene*.unity
