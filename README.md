@@ -8,7 +8,11 @@ To support us in our challenge of developing a game following TDD, we use the [Z
 
 ### Zenject setup
 
-Follow [this useful advice](http://adamsingle.com/unit-testing-in-unity-with-zenject-unirx-and-moq/) except for the part where they get rid of the assembly files. 
+Follow [this useful advice](http://adamsingle.com/unit-testing-in-unity-with-zenject-unirx-and-moq/) except for the part where they get rid of the assembly files. In addition, make sure that your .NET profile has API compatibility level `.NET 4.x`. On Unity3D version 2019.2.2f1, you will need to add `Moq.dll` and `Zenject-usage.dll` to your integration and scene tests' "Assembly References":
+
+![Assembly References](/doc/img/AssemblyReferences.png)
+
+In the unit test projects, you will only need to add the `Moq.dll` reference there.
 
 ## Software design
 
